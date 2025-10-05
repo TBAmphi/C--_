@@ -21,7 +21,7 @@ Player CreateNewPlayer(int x, int y)
     return p;
 }
 
-int MovePlayer(Player p, int x, int y)
+void MovePlayer(Player &p, int x, int y)
 {
     int moveX;
     int moveY;
@@ -33,14 +33,14 @@ int MovePlayer(Player p, int x, int y)
 
     p.x += moveX;
     p.y += moveY;
-    std::cout << p.name << " est desormais en " << p.x << "X et " << p.y << "Y" << std::endl;
-    return 0;
+    std::cout << p.name << " est desormais en " << p.x << " X et " << p.y << " Y" << std::endl;
 }
 
 int main()
 {
     Player player = CreateNewPlayer(142, 120);
     bool movePlayer = false;
+    char choix;
 
     std::cout << "Joueur cree" << std::endl;
     std::cout << "Nom: " << player.name << std::endl;
@@ -48,12 +48,13 @@ int main()
     std::cout << "Position: (" << player.x << ", " << player.y << ")" << std::endl;
 
     std::cout << "Faire bouger le joueur ?" << std::endl;   
-    (std::cin.get() == 'y') ? movePlayer = true : movePlayer = false;
+    std::cin >> choix;
 
-    if(movePlayer == true)
+    while(choix == 'y' || choix == 'Y')
     {
-        MovePlayer(player, player.x, player.y);       
+        MovePlayer(player, player.x, player.y); 
+        choix = 'n';      
+        std::cout << "Continue ?" << std::endl;   
+        std::cin >> choix;
     }
-
-    return 0;
 }
