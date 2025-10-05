@@ -9,6 +9,13 @@ struct Player
     int y;
 };
 
+enum class PlayerState
+{
+    Healthy,
+    Dead,
+    Hurt
+};
+
 Player CreateNewPlayer(int x, int y)
 {
     Player p;
@@ -17,7 +24,6 @@ Player CreateNewPlayer(int x, int y)
     p.health = 100;
     p.x = x;
     p.y = y;
-
     return p;
 }
 
@@ -36,24 +42,48 @@ void MovePlayer(Player &p, int x, int y)
     std::cout << p.name << " est desormais en " << p.x << " X et " << p.y << " Y" << std::endl;
 }
 
+PlayerState GetPlayerState(Player &p)
+{
+    if(p.health <= 0) return PlayerState::Dead;
+    else if(p.health == 100) return PlayerState::Healthy;
+    else return PlayerState::Hurt;
+}
+
+std::string PlayerStateToString(PlayerState state)
+{
+    switch (state)
+    {
+        case PlayerState::Healthy: return "Healthy";
+        case PlayerState::Hurt:    return "Hurt";
+        case PlayerState::Dead:    return "Dead";
+        default:                   return "Unknown";
+    }
+}
+
+void PrintPlayer(Player &p)
+{
+    std::cout << "------ Information Joueur ------" << std::endl;
+    std::cout << "Nom :        " << p.name << std::endl;
+    std::cout << "Vie :        " << p.health << std::endl;
+    std::cout << "Etat :       " << PlayerStateToString(GetPlayerState(p)) << std::endl;
+    std::cout << "Position :   " << p.x << ", " << p.y << std::endl;
+    std::cout << "--------------------------------" << std::endl;
+}
+
 int main()
 {
     Player player = CreateNewPlayer(142, 120);
-    bool movePlayer = false;
     char choix;
 
     std::cout << "Joueur cree" << std::endl;
-    std::cout << "Nom: " << player.name << std::endl;
-    std::cout << "Vie: " << player.health << std::endl;
-    std::cout << "Position: (" << player.x << ", " << player.y << ")" << std::endl;
-
+    PrintPlayer(player);
     std::cout << "Faire bouger le joueur ?" << std::endl;   
     std::cin >> choix;
 
     while(choix == 'y' || choix == 'Y')
     {
-        MovePlayer(player, player.x, player.y); 
-        choix = 'n';      
+        MovePlayer(player, player.x, player.y);
+        PrintPlayer(player);
         std::cout << "Continue ?" << std::endl;   
         std::cin >> choix;
     }
