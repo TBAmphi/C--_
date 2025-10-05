@@ -59,5 +59,12 @@ int main()
     std::cout << "De quelle annee ?" << std::endl;
     std::cin >> year;
 
-    std::cout << day_count(month, year) << std::endl;
+    if(day_count(month, year) == -1)
+    {
+        std::cout << "Erreur" << std::endl;
+    }
+    else
+    {
+        std::cout << day_count(month, year) << std::endl;
+    }    
 }
