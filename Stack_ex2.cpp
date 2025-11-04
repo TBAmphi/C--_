@@ -76,11 +76,60 @@ void MaxPath(int tab[5][5], int i, int j, int &limite, int index = 0)
     }
 }
 
+Coordinate MaxPathRecurcive(int tab[5][5], Coordinate start, int &limite)
+{
+    if (limite == 0) 
+    {return start;}
+    Coordinate result = FindhighestAdjacent(tab, start);
+    if (result.i == -1 && result.j == -1)
+    {
+        std::cout << "Toutes les valeurs adjacentes sont de 0, fin du programme. "<< std::endl;
+        return start;
+    }
+    std::cout << "New postion : (" << result.i << ", " << result.j << ")" << std::endl;
+    std::cout << "The value is : " << tab[result.i][result.j] << std::endl;
+    tab[result.i][result.j] = 0;
+    limite--;
+    return MaxPathRecurcive(tab, result, limite);
+}
+
+void Reset(int resetAnswer, bool &reset, int tab[5][5])
+{
+    if (resetAnswer == 1) 
+    {
+        reset = true;
+    } 
+    else 
+    {
+        reset = false;
+    }
+
+    if (reset == true) 
+    {
+        int defaultTab[5][5] = {{0,8,7,1,5}, {3,5,2,8,9}, {0,4,0,1,0}, {2,4,3,6,1}, {1,4,3,1,0}};
+        for (int i = 0; i < 5; i++) 
+        {
+            for (int j = 0; j < 5; j++) 
+            {
+                tab[i][j] = defaultTab[i][j];
+            }
+        }
+        std::cout << "Le tableau a ete remis par defaut." << std::endl;
+    } 
+    else 
+    {
+        std::cout << "Le tableau n'a pas ete remis par defaut." << std::endl;
+    }
+}
+
 int main() 
 {  
     int i;
     int j;
     int limite = 10;
+
+    int resetAnswer;
+    bool reset = true;
 
     int tab[5][5] = {{0,8,7,1,5}, {3,5,2,8,9}, {0,4,0,1,0}, {2,4,3,6,1}, {1,4,3,1,0}};
 
@@ -90,6 +139,7 @@ int main()
     std::cin >> j;
     std::cout << "Entrez une limite de tours : ";
     std::cin >> limite;
+    int limite_ = limite;
 
     if (i < 0 || i > 4 || j < 0 || j > 4) 
     {
@@ -97,6 +147,18 @@ int main()
         return 1;
     }
 
+    Coordinate start = {i, j};
+    std::cout << "Position de depart : (" << start.i << ", " << start.j << ")" << std::endl;
+    std::cout << "La valeur de depart est : " << tab[start.i][start.j] << std::endl;
+
+    std::cout << "Methode avec recursivite : " << std::endl;
+    MaxPathRecurcive(tab, start, limite_);
+
+    std::cout << "Voulez vous remettre le tableau par defaut pour l'autre methode ? (1 pour oui, 0 pour non) : ";
+    std::cin >> resetAnswer;
+    Reset(resetAnswer, reset, tab);
+
+    std::cout << "Methode sans recursivite : " << std::endl;
     MaxPath(tab, i, j, limite, 0);
 
     return 0;
