@@ -58,11 +58,11 @@ void MaxPath(int tab[5][5], int i, int j, int &limite, int index = 0)
         Coordinate result = FindhighestAdjacent(tab, start);
         if(result.i == -1 && result.j == -1) 
         {
-            std::cout << "Toutes les valeurs adjacentes sont de 0." << std::endl;
+            std::cout << "Toutes les valeurs adjacentes sont de 0, fin du programme. "<< std::endl;
             break;
         }
 
-        std::cout << "Difference to highest adjacent cell : (" << result.i << ", " << result.j << ")" << std::endl;
+        std::cout << "New postion : (" << result.i << ", " << result.j << ")" << std::endl;
         std::cout << "The value is : " << tab[result.i][result.j] << std::endl;
 
         tab[result.i][result.j] = 0;
@@ -72,7 +72,7 @@ void MaxPath(int tab[5][5], int i, int j, int &limite, int index = 0)
         std::cout << "The new value is : " << tab[result.i][result.j] << std::endl;
 
         index++;
-        std::cout << "Index : " << index << std::endl;
+        std::cout << "Index : " << index << ". "<< std::endl;
     }
 }
 
@@ -88,6 +88,8 @@ int main()
     std::cin >> i;
     std::cout << "Entrez j (de 0 a 4) : ";
     std::cin >> j;
+    std::cout << "Entrez une limite de tours : ";
+    std::cin >> limite;
 
     if (i < 0 || i > 4 || j < 0 || j > 4) 
     {
