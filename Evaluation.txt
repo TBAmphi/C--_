@@ -1,0 +1,13 @@
+Exercice 1 :
+a vaut 3;
+b vaut 4;
+c vaut 256;
+d vaut 150;
+e vaut false;
+f vaut true;
+g vaut true;
+h vaut 2h - 5;
+tab[2] vaut 3;
+std::cout << s affiche : 
+abc
+def
