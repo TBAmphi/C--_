@@ -7,14 +7,16 @@ void NbPattesFinder(std::map<std::string, int> animaux, int nbPattes);
 
 int main()
 {
-    std::map<std::string, int> animaux;
-    animaux["Chat"] = 4;
-    animaux["Humain"] = 2;
-    animaux["Araignee"] = 8;
-    animaux["Chien"] = 4;
-    animaux["Dodo"] = 2;
-    animaux["Mouton"] = 4;
-    animaux["Serpent"] = 0;
+    std::map<std::string, int> animaux
+    {
+        {"Chat", 4},
+        {"Humain", 2},
+        {"Araignee", 8},
+        {"Chien", 4},
+        {"Dodo", 2},
+        {"Mouton", 4},
+        {"Serpent", 0},
+    };
 
     FindInList(animaux, "Chien");
     FindInList(animaux, "Licorne");
