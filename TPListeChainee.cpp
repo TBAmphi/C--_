@@ -29,24 +29,37 @@ int main()
     List* liste = CreateList();
 
     //char valeur = '1';
-    AddElement(liste, '1');
-    AddElement(liste, '2');
-    AddElement(liste, '3');
+    AddElement(liste, 'A');
+    AddElement(liste, 'B');
+    AddElement(liste, 'C');
+    AddElement(liste, 'D');
     //int nbElements = 0;
     std::cout << GetElementAt(liste, 0)->value << std::endl;
     std::cout << GetElementAt(liste, 1)->value << std::endl;
     std::cout << GetElementAt(liste, 2)->value << std::endl;
+    std::cout << GetElementAt(liste, 3)->value << std::endl;
     std::cout << std::endl;
 
     RemoveElementAt(liste, 1);
 
     std::cout << GetElementAt(liste, 0)->value << std::endl;
     std::cout << GetElementAt(liste, 1)->value << std::endl;
+    std::cout << GetElementAt(liste, 2)->value << std::endl;
     std::cout << std::endl;
 
-    DestroyList(liste);
+    RemoveElementAt(liste, 0);
+
     std::cout << GetElementAt(liste, 0)->value << std::endl;
     std::cout << GetElementAt(liste, 1)->value << std::endl;
+    std::cout << std::endl;
+
+    RemoveElementAt(liste, 1);
+
+    std::cout << GetElementAt(liste, 0)->value << std::endl;
+
+    DestroyList(liste);
+    //std::cout << GetElementAt(liste, 0)->value << std::endl;
+    //std::cout << GetElementAt(liste, 1)->value << std::endl;
 
 }
 
@@ -117,9 +130,17 @@ void RemoveElementAt(List* liste, int pos)
 
 void DestroyList(List* liste)
 {
-    for(int i = 0; i < liste->count; i++)
+    /*for(int i = 0; i < liste->count; i++)
     {
         RemoveElementAt(liste, i);
+    }
+    delete liste;*/
+    Element* current = liste->first;
+    while(current != nullptr)
+    {
+        Element* next = current->next;
+        delete current;
+        current = next;
     }
     delete liste;
 }
